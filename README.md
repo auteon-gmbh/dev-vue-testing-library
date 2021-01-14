@@ -1,6 +1,6 @@
 # dev-vue-testing-library
 
-This is a companion repository to a small talk I held to introduce `@testing-library` to the team on Jan. 14 2020.
+This is a companion repository to a small talk I held to introduce [`@testing-library`](https://testing-library.com/) to the team on Jan. 14 2020.
 
 ## Storyline
 
@@ -9,7 +9,7 @@ However, since it is strongly coupled to the structure of the component by direc
 For instance, by adding another input at the beginning of the template in `HelloWorld.vue` you can break the tests even though the code still works.
 This isn't optimal.
 
-By introducing `@testing-library/vue` we need to write tests with a different perspective.
+By introducing [`@testing-library/vue`](https://testing-library.com/docs/vue-testing-library/intro) we need to write tests with a different perspective.
 `@testing-library` forces us to interact with our components similar to how our users would.
 For instance, we determine which button to click based on the text on the button.
 By doing so we decouple our tests from our implementation.
