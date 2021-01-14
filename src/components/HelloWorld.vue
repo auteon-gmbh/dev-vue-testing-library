@@ -1,8 +1,16 @@
 <template>
   <div>
-    <button @click="toggleDisabled()">Click me</button>
+    <button @click="toggleDisabled">Click me</button>
 
-    <input type="text" :disabled="disabled" />
+    <label for="user-name-2">Enter your username</label>
+    <input
+      id="user-name-2"
+      type="text"
+      :disabled="disabled"
+      v-model="username"
+    />
+
+    <p>Hello {{ username }}!</p>
   </div>
 </template>
 
@@ -13,6 +21,7 @@ export default Vue.extend({
   name: 'HelloWorld',
   data: () => ({
     disabled: true,
+    username: '',
   }),
   methods: {
     toggleDisabled(): void {
