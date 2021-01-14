@@ -1,8 +1,9 @@
-import { render, fireEvent } from '@testing-library/vue'
-import HelloWorld from './HelloWorld-improved.vue'
+import { render } from '@testing-library/vue'
+import userEvent from '@testing-library/user-event'
+import HelloWorld from './HelloWorld.vue'
 
 describe('Hello World', () => {
-  it('should disable the input by default.', async () => {
+  it('should disable the input by default.', () => {
     const { getByRole } = render(HelloWorld)
 
     const input = getByRole('textbox', { name: 'Username' })
@@ -16,7 +17,7 @@ describe('Hello World', () => {
     const button = getByRole('button', { name: 'Click me' })
     const input = getByRole('textbox', { name: 'Username' })
 
-    await fireEvent.click(button)
+    await userEvent.click(button)
 
     expect(input).not.toBeDisabled()
   })

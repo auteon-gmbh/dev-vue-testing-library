@@ -1,6 +1,7 @@
 <template>
   <div>
     <button @click="toggleDisabled()">Click me</button>
+
     <input type="text" :disabled="disabled" />
   </div>
 </template>
