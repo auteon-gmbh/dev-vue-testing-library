@@ -1,0 +1,11 @@
+{
+  "name": "typescript-intro",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Philipp Giese",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "typescript": "^4.1.3"
+  }
+}
