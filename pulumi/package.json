@@ -1,0 +1,8 @@
+{
+  "name": "pulumi",
+  "version": "1.0.0",
+  "description": "Dev talk for pulumi",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true
+}

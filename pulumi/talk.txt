@@ -1,0 +1,110 @@
+/////////////////////
+////////INTRO////////
+/////////////////////
+
+Pulumi is a tool for infrastructure as code but instead of writing yaml or hcl (terraform) 
+one can write in their native prefered language.
+
+https://www.pulumi.com/
+
+/////////////////////
+//////LANGUAGES//////
+/////////////////////
+
+- Typescript
+- Javascript
+- Python
+- Go
+- C#
+
+/////////////////////
+////INSTALLATION/////
+/////////////////////
+
+// install cli
+brew install pulumi
+
+// copy existing infracture
+pulumi import provider new-name old-name
+pulumi import aws:s3/bucket:Bucket bucket-access-logs auteon-s3-access-logs
+
+// import from terraform
+brew install pulumi/tap/tf2pulumi
+tf2pulumi
+
+// import from kubernetes
+brew install pulumi/tap/kube2pulumi
+kube2pulumi
+
+
+//////////////////////
+////////CLI///////////
+//////////////////////
+
+// start a new project
+pulumi new
+
+// manage stacks
+pulumi stack
+
+// preview
+pulumi preview
+
+// spawn infracture
+pulumi up
+
+// tear down infrastructure
+pulumi destroy
+
+
+///////////////////////
+///////PROVIDER////////
+///////////////////////
+
+https://www.pulumi.com/registry/
+
+// build your own provider
+https://www.pulumi.com/docs/guides/pulumi-packages/contribute-to-pulumi-registry/
+
+
+///////////////////////
+///////EXAMPLE/////////
+///////////////////////
+
+// Copyright 2016-2019, Pulumi Corporation.  All rights reserved.
+
+import * as awsx from "@pulumi/awsx";
+
+// Step 1: Create an ECS Fargate cluster.
+const cluster = new awsx.ecs.Cluster("cluster");
+
+// Step 2: Define the Networking for our service.
+const alb = new awsx.elasticloadbalancingv2.ApplicationLoadBalancer(
+    "net-lb", { external: true, securityGroups: cluster.securityGroups });
+const web = alb.createListener("web", { port: 80, external: true });
+
+// Step 3: Build and publish a Docker image to a private ECR registry.
+const img = awsx.ecs.Image.fromPath("app-img", "./app");
+
+// Step 4: Create a Fargate service task that can scale out.
+const appService = new awsx.ecs.FargateService("app-svc", {
+    cluster,
+    taskDefinitionArgs: {
+        container: {
+            image: img,
+            cpu: 102 /*10% of 1024*/,
+            memory: 50 /*MB*/,
+            portMappings: [ web ],
+        },
+    },
+    desiredCount: 5,
+});
+
+// Step 5: Export the Internet address for the service.
+export const url = web.endpoint.hostname;
+
+///////////////////
+/////TESTING///////
+///////////////////
+
+https://github.com/pulumi/examples/tree/74db62a03d013c2854d2cf933c074ea0a3bbf69d/testing-unit-ts
